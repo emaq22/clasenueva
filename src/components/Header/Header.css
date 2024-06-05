@@ -1,0 +1,44 @@
+/* Estilo para el encabezado */
+header {
+  position: relative;
+  height: 500px; /* Aumenta la altura según tu necesidad */
+  overflow: hidden;
+}
+
+.background-images {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+}
+
+.background-image {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: opacity 1s ease-in-out;
+  opacity: 0;
+  z-index: 1;
+}
+
+.background-image.visible {
+  opacity: 1;
+  z-index: 2;
+}
+
+.header-logo {
+  position: relative;
+  z-index: 3; /* Asegura que el logo esté frente a las imágenes de fondo */
+  display: block;
+  margin: auto;
+  border-radius: 60px;
+  width: auto;
+  height: auto; /* Asegura que la altura se ajuste proporcionalmente */
+/*  box-shadow: 8px 8px 8 px #FAEA10; */
+  filter: drop-shadow(0px 0px 20px #ffffff);
+}

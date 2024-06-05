@@ -1,0 +1,79 @@
+/* Estilo para el pie de página */
+footer {
+    background-color: #929291;
+    height: auto;
+    position: fixed;
+    /* Mantener el footer fijo en la parte inferior de la ventana */
+    bottom: 0;
+    /* Asegura que el footer esté alineado con el borde inferior de la ventana */
+    width: 100%;
+    /* Hace que el footer ocupe todo el ancho de la ventana */
+    padding: 0;
+    /* Agrega un relleno superior e inferior para separar el contenido del footer */
+  }
+  
+  .footer-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .footer-content p {
+    color: #ffffff;
+    margin: 0 10px;
+    font-size: 14px;
+  }
+  
+  .footer-content p:first-child {
+    margin-left: 0;
+  }
+  
+  .footer-content p:last-child {
+    margin-right: 0;
+  }
+  
+  .social-media {
+    display: flex;
+  }
+  
+  .social-media img {
+    margin-left: 10px;
+    margin-top: 5px;
+    width: 30px;
+    /* establece un ancho del 20% del contenedor padre */
+    height: auto;
+    /* establece una altura automática para mantener la proporción */
+  }
+  
+  .social-media img:last-child {
+    margin-right: 10px;
+  }
+  
+  .footer-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .footer-content p {
+    color: #ffffff;
+    margin: 0 10px;
+  }
+  
+  .social-media {
+    display: flex;
+  }
+  
+  .social-media img {
+    margin-left: 10px;
+    margin-top: 5px;
+    width: 30px;
+    /* establece un ancho del 20% del contenedor padre */
+    height: auto;
+    /* establece una altura automática para mantener la proporción */
+  }
+  
+  .social-media img:last-child {
+    margin-right: 10px;
+  }
+  

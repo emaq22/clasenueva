@@ -1,0 +1,147 @@
+[
+    {
+        "id": 1,
+        "title": "Hotel Centro Plaza1",
+        "description": "Hotel centro plaza de la localidad de Concordia, Entre Ríos, ubicado en calle La Rioja 543.",
+        "images": [
+            "/img/ciudad.jpg",
+            "/img/ciudad.jpg",
+            "/img/ciudad.jpg"
+        ],
+        "details": {
+            "rooms": 3,
+            "price": "1500 ARS por noche",
+            "bathroom": "Privado",
+            "amenities": ["Wifi", "Desayuno incluido", "Estacionamiento gratuito"]
+        }
+    },
+    {
+        "id": 2,
+        "title": "Hotel Centro Plaza2",
+        "description": "Hotel centro plaza de la localidad de Concordia, Entre Ríos, ubicado en calle La Rioja 543.",
+        "images": [
+            "/img/ciudad.jpg",
+            "/img/ciudad.jpg",
+            "/img/ciudad.jpg"
+        ],
+        "details": {
+            "rooms": 3,
+            "price": "1500 ARS por noche",
+            "bathroom": "Privado",
+            "amenities": ["Wifi", "Desayuno incluido", "Estacionamiento gratuito"]
+        }
+    },
+    {
+        "id": 3,
+        "title": "Hotel Centro Plaza3",
+        "description": "Hotel centro plaza de la localidad de Concordia, Entre Ríos, ubicado en calle La Rioja 543.",
+        "images": [
+            "/img/ciudad.jpg",
+            "/img/ciudad.jpg",
+            "/img/ciudad.jpg"
+        ],
+        "details": {
+            "rooms": 3,
+            "price": "1500 ARS por noche",
+            "bathroom": "Privado",
+            "amenities": ["Wifi", "Desayuno incluido", "Estacionamiento gratuito"]
+        }
+    },
+    {
+        "id": 4,
+        "title": "Hotel Centro Plaza4",
+        "description": "Hotel centro plaza de la localidad de Concordia, Entre Ríos, ubicado en calle La Rioja 543.",
+        "images": [
+            "/img/ciudad.jpg",
+            "/img/ciudad.jpg",
+            "/img/ciudad.jpg"
+        ],
+        "details": {
+            "rooms": 3,
+            "price": "1500 ARS por noche",
+            "bathroom": "Privado",
+            "amenities": ["Wifi", "Desayuno incluido", "Estacionamiento gratuito"]
+        }
+    },
+    {
+        "id": 5,
+        "title": "Hotel Centro Plaza5",
+        "description": "Hotel centro plaza de la localidad de Concordia, Entre Ríos, ubicado en calle La Rioja 543.",
+        "images": [
+            "/img/ciudad.jpg",
+            "/img/ciudad.jpg",
+            "/img/ciudad.jpg"
+        ],
+        "details": {
+            "rooms": 3,
+            "price": "1500 ARS por noche",
+            "bathroom": "Privado",
+            "amenities": ["Wifi", "Desayuno incluido", "Estacionamiento gratuito"]
+        }
+    },
+    {
+        "id": 6,
+        "title": "Hotel Centro Plaza6",
+        "description": "Hotel centro plaza de la localidad de Concordia, Entre Ríos, ubicado en calle La Rioja 543.",
+        "images": [
+            "/img/ciudad.jpg",
+            "/img/ciudad.jpg",
+            "/img/ciudad.jpg"
+        ],
+        "details": {
+            "rooms": 3,
+            "price": "1500 ARS por noche",
+            "bathroom": "Privado",
+            "amenities": ["Wifi", "Desayuno incluido", "Estacionamiento gratuito"]
+        }
+    },
+    {
+        "id": 7,
+        "title": "Hotel Centro Plaza7",
+        "description": "Hotel centro plaza de la localidad de Concordia, Entre Ríos, ubicado en calle La Rioja 543.",
+        "images": [
+            "/img/ciudad.jpg",
+            "/img/ciudad.jpg",
+            "/img/ciudad.jpg"
+        ],
+        "details": {
+            "rooms": 3,
+            "price": "1500 ARS por noche",
+            "bathroom": "Privado",
+            "amenities": ["Wifi", "Desayuno incluido", "Estacionamiento gratuito"]
+        }
+    },
+    {
+        "id": 8,
+        "title": "Hotel Centro Plaza8",
+        "description": "Hotel centro plaza de la localidad de Concordia, Entre Ríos, ubicado en calle La Rioja 543.",
+        "images": [
+            "/img/ciudad.jpg",
+            "/img/ciudad.jpg",
+            "/img/ciudad.jpg"
+        ],
+        "details": {
+            "rooms": 3,
+            "price": "1500 ARS por noche",
+            "bathroom": "Privado",
+            "amenities": ["Wifi", "Desayuno incluido", "Estacionamiento gratuito"]
+        }
+    },
+    {
+        "id": 9,
+        "title": "Hotel Centro Plaza9",
+        "description": "Hotel centro plaza de la localidad de Concordia, Entre Ríos, ubicado en calle La Rioja 543.",
+        "images": [
+            "/img/ciudad.jpg",
+            "/img/ciudad.jpg",
+            "/img/ciudad.jpg"
+        ],
+        "details": {
+            "rooms": 3,
+            "price": "1500 ARS por noche",
+            "bathroom": "Privado",
+            "amenities": ["Wifi", "Desayuno incluido", "Estacionamiento gratuito"]
+        }
+    }
+  
+]

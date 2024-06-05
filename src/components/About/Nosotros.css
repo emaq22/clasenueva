@@ -1,0 +1,76 @@
+/* Estilo para la sección "DeDondeSomos" */
+.DeDondeSomos {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  height: auto;
+  margin-top: 50px;
+}
+
+.DeDondeSomos h2 {
+  font-size: 35px;
+  margin-bottom: 15px;
+  text-align: center;
+}
+
+.DeDondeSomos p {
+  font-size: 20px;
+  line-height: 1.5;
+  margin-bottom: 10px;
+  text-align: center;
+  max-width: 750px;
+}
+
+.DeDondeSomos img {
+  width: 300px;
+  margin-bottom: 30px;
+  border-radius: 50%;
+}
+
+/* Estilo para la sección "AcercaDeNosotros" */
+.AcercaDeNosotros {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  margin-top: 50px;
+}
+
+.AcercaDeNosotros h3 {
+  font-size: 30px;
+  margin-bottom: 15px;
+  text-align: center;
+}
+
+.AcercaDeNosotros p {
+  font-size: 20px;
+  line-height: 1.5;
+  margin-bottom: 10px;
+  text-align: center;
+  max-width: 750px;
+}
+
+.AcercaDeNosotros img {
+  width: 300px;
+  margin-bottom: 30px;
+  border-radius: 50%;
+}
+
+/* Ajustes responsivos */
+@media screen and (max-width: 768px) {
+  .DeDondeSomos img, .AcercaDeNosotros img {
+    width: 200px;
+    margin-bottom: 20px;
+  }
+
+  .DeDondeSomos h2, .AcercaDeNosotros h3 {
+    font-size: 28px;
+    margin-bottom: 10px;
+  }
+
+  .DeDondeSomos p, .AcercaDeNosotros p {
+    font-size: 16px;
+    max-width: none;
+  }
+}
