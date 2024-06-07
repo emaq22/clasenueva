@@ -2,9 +2,10 @@ import React, { useEffect, useState } from 'react';
 import './Header.css';
 
 const images = [
-    process.env.PUBLIC_URL + '/img/ciudad.jpg',
-    process.env.PUBLIC_URL + '/img/ciudad.jpg',
-    process.env.PUBLIC_URL + '/img/ciudad.jpg'
+    process.env.PUBLIC_URL + '/img/concordia.webp',
+    process.env.PUBLIC_URL + '/img/Costanera.jpeg',
+    process.env.PUBLIC_URL + '/img/costanera.webp',
+    process.env.PUBLIC_URL + '/img/castillo.webp'
 ];
 
 function Header() {
@@ -13,7 +14,7 @@ function Header() {
     useEffect(() => {
         const intervalId = setInterval(() => {
             setCurrentImageIndex((prevIndex) => (prevIndex + 1) % images.length);
-        }, 10000); // Cambia la imagen cada 10 segundos
+        }, 5000); // Cambia la imagen cada 5 segundos
 
         return () => clearInterval(intervalId); // Limpia el intervalo al desmontar el componente
     }, []);
@@ -32,7 +33,7 @@ function Header() {
             </div>
             <a href="/">
                 <img
-                    src={process.env.PUBLIC_URL + '/img/pngtree-receptionist-bell-hotel-logo-design-png-image_5294385.png'}
+                    src={process.env.PUBLIC_URL + '/img/logo.png'}
                     alt="Alojamientos Concordia"
                     className="header-logo"
                 />

@@ -1,27 +1,20 @@
-import React from 'react';
-import { Link, Route, Routes } from 'react-router-dom';
-import styles from './AdminPanel.module.css';
+import React, { useState } from 'react';
 import TipoAlojamiento from './TipoAlojamiento/TipoAlojamiento';
 import AnadirAlojamiento from './AnadirAlojamiento/AnadirAlojamiento';
+import styles from './AdminPanel.module.css';
 
 const AdminPanel = () => {
+    const [activeTab, setActiveTab] = useState('tipos');
+
     return (
         <div className={styles.adminPanel}>
-            <nav className={styles.navbar}>
-                <ul>
-                    <li>
-                        <Link to="/admin/tipo-alojamiento">Tipo Alojamiento</Link>
-                    </li>
-                    <li>
-                        <Link to="/admin/anadir-alojamiento">Añadir Alojamiento</Link>
-                    </li>
-                </ul>
+            <nav className={styles.nav}>
+                <button onClick={() => setActiveTab('tipos')} className={activeTab === 'tipos' ? styles.active : ''}>Tipo Alojamiento</button>
+                <button onClick={() => setActiveTab('anadir')} className={activeTab === 'anadir' ? styles.active : ''}>Añadir Alojamiento</button>
             </nav>
             <div className={styles.content}>
-                <Routes>
-                    <Route path="tipo-alojamiento" element={<TipoAlojamiento />} />
-                    <Route path="anadir-alojamiento" element={<AnadirAlojamiento />} />
-                </Routes>
+                {activeTab === 'tipos' && <TipoAlojamiento />}
+                {activeTab === 'anadir' && <AnadirAlojamiento />}
             </div>
         </div>
     );
