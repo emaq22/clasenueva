@@ -1,8 +1,11 @@
 /* Estilo para el encabezado */
 header {
   position: relative;
-  height: 500px; /* Aumenta la altura según tu necesidad */
+  height: 500px; /* Ajusta la altura según sea necesario */
   overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .background-images {
@@ -32,13 +35,10 @@ header {
 }
 
 .header-logo {
-  position: relative;
   z-index: 3; /* Asegura que el logo esté frente a las imágenes de fondo */
-  display: block;
-  margin: auto;
+  position: relative; /* Asegura que el z-index tenga efecto */
   border-radius: 60px;
-  width: 40%;
-  height: auto; /* Asegura que la altura se ajuste proporcionalmente */
-/*  box-shadow: 8px 8px 8 px #FAEA10; */
   filter: drop-shadow(0px 0px 20px #ffffff);
+  max-width: 100%; /* Asegura que el logo no exceda el ancho de la pantalla */
+  height: auto; /* Mantiene la proporción del logo */
 }

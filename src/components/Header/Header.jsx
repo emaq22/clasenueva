@@ -33,7 +33,7 @@ function Header() {
             </div>
             <a href="/">
                 <img
-                    src={process.env.PUBLIC_URL + '/img/logo.png'}
+                    src={process.env.PUBLIC_URL + '/img/logo.svg'}
                     alt="Alojamientos Concordia"
                     className="header-logo"
                 />
