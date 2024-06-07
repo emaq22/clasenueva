@@ -7,7 +7,7 @@ import Nosotros from './components/About/Nosotros';
 import Contacto from './components/Contact/Contacto';
 import Hoteles from './components/Hoteles/Hoteles'; 
 import Alojamiento from './components/Alojamiento/Alojamiento';
-import Login from './components/Admin/Login'; 
+import Login from './components/Login/Login'; 
 import AdminPanel from './components/Admin/AdminPanel'; 
 import Footer from './components/Footer/Footer';
 import './App.css';

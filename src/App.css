@@ -2,10 +2,10 @@
 body {
   font-family: Arial, sans-serif;
   font-size: 22px;
-  color: #555;
+  color: #000000;
   margin: 0;
   padding: 0;
-  background-color: #ffffff;
+  background: linear-gradient(#61419B, #D4C7EC);
   flex-direction: column;
   position: relative;
 }
