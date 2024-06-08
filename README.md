@@ -8,7 +8,7 @@
 ## Integrantes:
 
 
-  Giovanni Percara,
-  Alegre Lara,
-  Furega Emanuel
+1. Giovanni Percara,
+2. Alegre Lara,
+3. Furega Emanuel
 
