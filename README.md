@@ -1,11 +1,11 @@
-##Repositorio:
+## Repositorio:
 
 ```bash
   https://github.com/emaq22/WebAlojamiento.git
 ```
 
 
-##Integrantes:
+## Integrantes:
 
 
   Giovanni Percara,
