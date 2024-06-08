@@ -1,8 +1,8 @@
-/* Estilos para la sección 1 */
 .Seccion1 {
-  background-color: linear-gradient(#61419B, #D4C7EC);;
+  background: linear-gradient(#61419B, #D4C7EC);
   padding: 50px;
   text-align: center;
+  margin: 0; /* Asegúrate de que no haya márgenes superiores o inferiores */
 }
 
 .Seccion1 h1 {
@@ -31,12 +31,12 @@ button {
   font-family: inherit;
 }
 
-button.btn-father {
+.btnFather {
   width: 13rem;
   height: auto;
 }
 
-button.btn-father .circle {
+.circle {
   transition: all 0.45s cubic-bezier(0.65, 0, 0.076, 1);
   position: relative;
   display: block;
@@ -47,7 +47,7 @@ button.btn-father .circle {
   border-radius: 1.625rem;
 }
 
-button.btn-father .circle .icon {
+.icon {
   transition: all 0.45s cubic-bezier(0.65, 0, 0.076, 1);
   position: absolute;
   top: 0;
@@ -56,7 +56,7 @@ button.btn-father .circle .icon {
   background: #fff;
 }
 
-button.btn-father .circle .icon.arrow {
+.arrow {
   transition: all 0.45s cubic-bezier(0.65, 0, 0.076, 1);
   left: 0.625rem;
   width: 1.125rem;
@@ -64,7 +64,7 @@ button.btn-father .circle .icon.arrow {
   background: none;
 }
 
-button.btn-father .circle .icon.arrow::before {
+.arrow::before {
   position: absolute;
   content: "";
   top: -0.29rem;
@@ -76,7 +76,7 @@ button.btn-father .circle .icon.arrow::before {
   transform: rotate(45deg);
 }
 
-button.btn-father .button-text {
+.buttonText {
   transition: all 0.45s cubic-bezier(0.65, 0, 0.076, 1);
   position: absolute;
   top: 0;
@@ -96,27 +96,24 @@ button:hover .circle {
   width: 100%;
 }
 
-button:hover .circle .icon.arrow {
+button:hover .circle .arrow {
   background: #fff;
   transform: translate(1rem, 0);
 }
 
-button:hover .button-text {
+button:hover .buttonText {
   color: #fff;
 }
 
-/* Estilo para el contenido principal */
 main {
   margin-bottom: 100px;
-  /* Agrega un margen inferior para dejar espacio para el footer */
 }
 
-/* Estilos para las imágenes de los hoteles */
 .Hotel {
   display: flex;
   flex-direction: column;
   align-items: center;
-  width: calc(25% - 20px); /* Mantenemos el mismo ancho */
+  width: calc(25% - 20px);
   aspect-ratio: 1 / 0.7;
   border-radius: 8px;
   position: relative;
@@ -124,14 +121,14 @@ main {
   margin: 20px;
 }
 
-.Hotel .image-box {
+.imageBox {
   width: 100%;
   height: 100%;
   border-radius: inherit;
   overflow: hidden;
 }
 
-.Hotel .image-box img {
+.imageBox img {
   width: 100%;
   height: 100%;
   object-fit: cover;
@@ -201,8 +198,10 @@ main {
   transform: translateY(0);
 }
 
-/* Estilos para los servicios, testimonios, ofertas especiales y ubicación */
-.services, .testimonials, .special-offers, .location-info {
+.services,
+.testimonials,
+.specialOffers,
+.locationInfo {
   background-color: #fff;
   border-radius: 8px;
   padding: 20px;
@@ -210,7 +209,10 @@ main {
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
-.services h3, .testimonials h3, .special-offers h3, .location-info h3 {
+.services h3,
+.testimonials h3,
+.specialOffers h3,
+.locationInfo h3 {
   color: #333;
   font-size: 20px;
   margin-bottom: 15px;
@@ -227,59 +229,10 @@ main {
   margin-bottom: 10px;
 }
 
-.testimonials p, .special-offers p, .location-info p {
+.testimonials p,
+.specialOffers p,
+.locationInfo p {
   color: #666;
   font-size: 16px;
-  margin-bottom: 10px;
-}
-
-/* Ajustes para el diseño responsivo */
-@media screen and (max-width: 800px) {
-  article {
-    flex-direction: column;
-    align-items: center;
-  }
-
-  .Hotel {
-    width: 90%;
-  }
-
-  .content {
-    width: 90%;
-  }
-
-  .Seccion1 a {
-    padding: 10px 20px;
-  }
-
-  .services, .testimonials, .special-offers, .location-info {
-    margin: 10px 0;
-    padding: 15px;
-  }
-
-  .services h3, .testimonials h3, .special-offers h3, .location-info h3 {
-    font-size: 18px;
-  }
-
-  .services ul li, .testimonials p, .special-offers p, .location-info p {
-    font-size: 14px;
-  }
-}
-
-@media screen and (max-width: 600px) {
-  .Hotel {
-    width: 100%;
-  }
-
-  .services, .testimonials, .special-offers, .location-info {
-    padding: 10px;
-  }
-
-  .services h3, .testimonials h3, .special-offers h3, .location-info h3 {
-    font-size: 16px;
-  }
-
-  .services ul li, .testimonials p, .special-offers p, .location-info p {
-    font-size: 12px;
-  }
+  line-height: 1.5;
 }

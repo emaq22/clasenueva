@@ -28,8 +28,13 @@ a {
 
 /* Estilo para el contenido principal */
 main {
-  margin-bottom: 100px;
-  /* Agrega un margen inferior para dejar espacio para el footer */
+  margin-bottom: 100px; /* Agrega un margen inferior para dejar espacio para el footer */
+}
+
+/* Ajuste para el margen superior e inferior de todos los módulos excepto Section1 */
+main > *:not(.Seccion1) {
+  margin-top: 50px;  /* Margen superior */
+  margin-bottom: 50px;  /* Margen inferior */
 }
 
 *,
@@ -43,21 +48,18 @@ main {
 /* Ajuste para limitar el número máximo de elementos por fila */
 @media screen and (max-width: 1200px) {
   .Seccion2 article .Hotel {
-    width: calc(33.33% - 20px);
-    /* Reducimos el ancho para mostrar 3 elementos por fila */
+    width: calc(33.33% - 20px); /* Reducimos el ancho para mostrar 3 elementos por fila */
   }
 }
 
 @media screen and (max-width: 800px) {
   .Seccion2 article .Hotel {
-    width: calc(50% - 20px);
-    /* Reducimos el ancho para mostrar 2 elementos por fila */
+    width: calc(50% - 20px); /* Reducimos el ancho para mostrar 2 elementos por fila */
   }
 }
 
 @media screen and (max-width: 500px) {
   .Seccion2 article .Hotel {
-    width: calc(100% - 20px);
-    /* Reducimos el ancho al 100% para mostrar 1 elemento por fila */
+    width: calc(100% - 20px); /* Reducimos el ancho al 100% para mostrar 1 elemento por fila */
   }
 }

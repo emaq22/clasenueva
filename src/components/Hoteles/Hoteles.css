@@ -1,4 +1,14 @@
 /* Ajuste para el tamaño de los elementos .Hotel dentro de los artículos */
+
+.Hoteles {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 115%; /* Altura específica para el componente Hoteles */
+  margin: 0; /* No margen superior o inferior */
+  padding: 0; /* No padding adicional */
+}
+
 article {
   display: flex;
   flex-wrap: wrap;

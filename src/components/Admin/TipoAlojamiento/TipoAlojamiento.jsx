@@ -1,11 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import styles from './TipoAlojamiento.module.css';
+import Modal from './Modal';
 
 const TipoAlojamiento = () => {
     const [tipos, setTipos] = useState([]);
     const [descripcion, setDescripcion] = useState('');
     const [editTipo, setEditTipo] = useState(null);
+    const [errorMessage, setErrorMessage] = useState('');
+    const [showModal, setShowModal] = useState(false);
 
     useEffect(() => {
         fetchTiposAlojamiento();
@@ -22,9 +25,18 @@ const TipoAlojamiento = () => {
 
     const handleCreate = async () => {
         try {
+            // Verificar si el tipo de alojamiento ya existe
+            const tipoExistente = tipos.find(tipo => tipo.Descripcion.toLowerCase() === descripcion.toLowerCase());
+            if (tipoExistente) {
+                setErrorMessage('El tipo de alojamiento ya existe');
+                setShowModal(true);
+                return;
+            }
+
             const response = await axios.post('/tiposAlojamiento/createTipoAlojamiento', { Descripcion: descripcion });
             setTipos([...tipos, response.data]);
             setDescripcion('');
+            setErrorMessage('');
         } catch (error) {
             console.error('Error creating tipo de alojamiento', error);
         }
@@ -41,6 +53,7 @@ const TipoAlojamiento = () => {
             setTipos(updatedTipos);
             setEditTipo(null);
             setDescripcion('');
+            setErrorMessage('');
         } catch (error) {
             console.error('Error editing tipo de alojamiento', error);
         }
@@ -54,6 +67,7 @@ const TipoAlojamiento = () => {
             }
             await axios.delete(`/tiposAlojamiento/deleteTipoAlojamiento/${id}`);
             setTipos(tipos.filter((tipo) => tipo.idTipoAlojamiento !== id));
+            setErrorMessage('');
         } catch (error) {
             console.error('Error deleting tipo de alojamiento', error);
         }
@@ -74,6 +88,10 @@ const TipoAlojamiento = () => {
         }
     }, [editTipo]);
 
+    const closeModal = () => {
+        setShowModal(false);
+    };
+
     return (
         <div className={styles.container}>
             <h2>Tipos de Alojamiento</h2>
@@ -90,6 +108,7 @@ const TipoAlojamiento = () => {
                     {editTipo ? 'Actualizar' : 'Agregar'}
                 </button>
             </form>
+            {showModal && <Modal message={errorMessage} onClose={closeModal} />}
             <ul className={styles.list}>
                 {tipos.map((tipo) => (
                     <li key={tipo.idTipoAlojamiento} className={styles.listItem}>

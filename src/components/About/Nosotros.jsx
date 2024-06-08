@@ -1,10 +1,10 @@
-import React from 'react'
-import './Nosotros.css';
+import React from 'react';
+import styles from './Nosotros.module.css';
 
 function Nosotros() {
     return (
-        <section className="Seccion3">
-            <article className="DeDondeSomos">
+        <section className={styles.Seccion3}>
+            <article className={styles.DeDondeSomos}>
                 <h2>De donde somos?</h2>
                 <p>Nos encontramos en el centro de la ciudad,
                     a solo pasos de las principales atracciones turísticas, restaurantes y tiendas.
@@ -14,7 +14,7 @@ function Nosotros() {
                     <img src="img/ZSP2IS2NJ5GOVC5NC2UJKO32XM.avif" alt="imagen ubicacion de concordia" />
                 </div>
             </article>
-            <article className="AcercaDeNosotros">
+            <article className={styles.AcercaDeNosotros}>
                 <div>
                     <h3>Acerca de nosotros</h3>
                 </div>
@@ -30,7 +30,7 @@ function Nosotros() {
                 </div>
             </article>
         </section>
-    )
+    );
 }
 
-export default Nosotros
+export default Nosotros;

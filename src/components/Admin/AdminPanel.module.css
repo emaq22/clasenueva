@@ -1,10 +1,9 @@
 .adminPanel {
     padding: 20px;
+    text-align: center;
 }
 
 .nav {
-    display: flex;
-    justify-content: center;
     margin-bottom: 20px;
 }
 
@@ -13,16 +12,19 @@
     padding: 10px 20px;
     font-size: 16px;
     cursor: pointer;
-    background-color: #007bff;
-    color: white;
     border: none;
-    border-radius: 5px;
+    background-color: #ddd;
+    border-radius: 4px;
+    transition: background-color 0.3s ease;
 }
 
 .nav button.active {
-    background-color: #0056b3;
+    background-color: #61419B;
+    color: white;
 }
 
 .content {
     padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
 }
