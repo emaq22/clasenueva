@@ -1,7 +1,7 @@
 ## Repositorio:
 
 ```bash
-  https://github.com/emaq22/WebAlojamiento.git
+  https://github.com/emaq22/clasenueva.git
 ```
 
 
