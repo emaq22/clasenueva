@@ -25,7 +25,6 @@ const TipoAlojamiento = () => {
 
     const handleCreate = async () => {
         try {
-            // Verificar si el tipo de alojamiento ya existe
             const tipoExistente = tipos.find(tipo => tipo.Descripcion.toLowerCase() === descripcion.toLowerCase());
             if (tipoExistente) {
                 setErrorMessage('El tipo de alojamiento ya existe');
@@ -33,8 +32,8 @@ const TipoAlojamiento = () => {
                 return;
             }
 
-            const response = await axios.post('/tiposAlojamiento/createTipoAlojamiento', { Descripcion: descripcion });
-            setTipos([...tipos, response.data]);
+            await axios.post('/tiposAlojamiento/createTipoAlojamiento', { Descripcion: descripcion });
+            await fetchTiposAlojamiento();
             setDescripcion('');
             setErrorMessage('');
         } catch (error) {
@@ -48,9 +47,8 @@ const TipoAlojamiento = () => {
                 console.error('ID is not valid');
                 return;
             }
-            const response = await axios.put(`/tiposAlojamiento/putTipoAlojamiento/${id}`, { Descripcion: descripcion });
-            const updatedTipos = tipos.map((tipo) => (tipo.idTipoAlojamiento === id ? response.data : tipo));
-            setTipos(updatedTipos);
+            await axios.put(`/tiposAlojamiento/putTipoAlojamiento/${id}`, { Descripcion: descripcion });
+            await fetchTiposAlojamiento();
             setEditTipo(null);
             setDescripcion('');
             setErrorMessage('');
@@ -66,7 +64,7 @@ const TipoAlojamiento = () => {
                 return;
             }
             await axios.delete(`/tiposAlojamiento/deleteTipoAlojamiento/${id}`);
-            setTipos(tipos.filter((tipo) => tipo.idTipoAlojamiento !== id));
+            await fetchTiposAlojamiento();
             setErrorMessage('');
         } catch (error) {
             console.error('Error deleting tipo de alojamiento', error);
@@ -112,7 +110,7 @@ const TipoAlojamiento = () => {
             <ul className={styles.list}>
                 {tipos.map((tipo) => (
                     <li key={tipo.idTipoAlojamiento} className={styles.listItem}>
-                        <span>ID: {tipo.idTipoAlojamiento}</span> {/* Mostrando el número de ID */}
+                        <span>ID: {tipo.idTipoAlojamiento}</span>
                         <span>{tipo.Descripcion}</span>
                         <div>
                             <button onClick={() => setEditTipo(tipo)} className={styles.editButton}>Editar</button>
