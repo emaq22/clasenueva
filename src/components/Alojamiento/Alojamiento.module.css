@@ -1,0 +1,75 @@
+.Alojamiento {
+  display: flex;
+  flex-direction: column;
+  max-width: 1000px; /* Modifica el ancho máximo según lo que necesites */
+  margin: 0 auto;
+  padding: 20px;
+  min-height: 135vh; /* Asegura que el cuerpo ocupe al menos el 100% del alto de la ventana */
+ /* margin-bottom: 200px !important; /* Ajusta el margen inferior para separar del footer */
+}
+
+.titleContainer {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.Alojamiento h2 {
+  font-size: 2.2em;
+  margin-bottom: 10px;
+}
+
+.Alojamiento .descripcion {
+  font-size: 1.2em;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.imageContainer {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  max-width: 100%; /* Ancho máximo relativo al contenedor principal */
+  margin: 0 auto 20px; /* Ajusta el margen según sea necesario */
+}
+
+.imageSlider {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+}
+
+.carouselImage {
+  max-width: 100%; /* Ajusta el tamaño máximo de la imagen */
+  max-height: 500px; /* Altura máxima */
+  object-fit: cover; /* Ajuste para cubrir el área */
+  border-radius: 8px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.detailsContainer {
+  background-color: #e1bcdb56;
+  border-radius: 8px;
+  padding: 20px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  text-align: center;
+}
+
+.detailsContainer h3 {
+  font-size: 1.5em;
+  margin-bottom: 10px;
+}
+
+.detailsContainer ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+.detailsContainer ul li {
+  font-size: 1.1em;
+  margin-bottom: 8px;
+}
+
+.detailsContainer ul ul {
+  padding-left: 20px;
+  list-style-type: disc;
+}

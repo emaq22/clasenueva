@@ -1,4 +1,5 @@
 /* Estilos globales */
+
 body {
   font-family: Arial, sans-serif;
   font-size: 22px;
@@ -8,7 +9,9 @@ body {
   background: linear-gradient(#61419B, #D4C7EC);
   flex-direction: column;
   position: relative;
-}
+  min-height: 100vh;
+  }
+
 
 a {
   color: inherit;
@@ -28,7 +31,7 @@ a {
 
 /* Estilo para el contenido principal */
 main {
-  margin-bottom: 100px; /* Agrega un margen inferior para dejar espacio para el footer */
+  margin-bottom: 0; /* Agrega un margen inferior para dejar espacio para el footer */
 }
 
 /* Ajuste para el margen superior e inferior de todos los módulos excepto Section1 */

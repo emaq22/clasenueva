@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-import styles from './Alojamiento.css';
+import { Carousel } from 'react-responsive-carousel';
+import 'react-responsive-carousel/lib/styles/carousel.min.css';
+import styles from './Alojamiento.module.css';
 
 const Alojamiento = () => {
   const { id } = useParams();
@@ -79,18 +81,22 @@ const Alojamiento = () => {
   }
 
   return (
-    <div className="Alojamiento">
-      <div className="image-container">
-        <div className="image-slider">
-          {imagenes.map((imagen) => (
-            <img key={imagen.idImagen} src={imagen.RutaArchivo} alt={`Imagen ${imagen.idImagen}`} className="image" />
-          ))}
-        </div>
-      </div>
-      <div className="details-container">
+    <div className={styles.Alojamiento}>
+      <div className={styles.titleContainer}>
         <h2>{alojamiento.Titulo}</h2>
-        <p className="descripcion">{alojamiento.Descripcion}</p>
-        <div className="details-bubble">
+        <p className={styles.descripcion}>{alojamiento.Descripcion}</p>
+      </div>
+      <div className={styles.imageContainer}>
+        <Carousel showThumbs={false} showStatus={false} infiniteLoop>
+          {imagenes.map((imagen) => (
+            <div key={imagen.idImagen}>
+              <img src={imagen.RutaArchivo} alt={`Imagen ${imagen.idImagen}`} className={styles.carouselImage} />
+            </div>
+          ))}
+        </Carousel>
+      </div>
+      <div className={styles.detailsContainer}>
+        <div className={styles.detailsBubble}>
           <h3>Detalles:</h3>
           <ul>
             <li><strong>Tipo de Alojamiento:</strong> {tipoAlojamiento.Descripcion}</li>

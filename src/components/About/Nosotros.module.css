@@ -1,3 +1,7 @@
+.Seccion3{
+  min-height: 101.5vh;
+}
+
 /* Estilo para la sección "DeDondeSomos" */
 .DeDondeSomos {
   display: flex;
