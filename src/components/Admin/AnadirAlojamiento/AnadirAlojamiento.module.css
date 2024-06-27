@@ -1,52 +1,80 @@
-.container {
+.anadirAlojamiento {
+    max-width: 600px;
+    margin: 0 auto;
     padding: 20px;
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
-.form {
-    display: flex;
-    flex-direction: column;
+.anadirAlojamiento h2 {
+    font-size: 24px;
+    color: #61419B;
     margin-bottom: 20px;
 }
 
-.input {
-    margin-bottom: 10px;
-    padding: 5px;
+.anadirAlojamiento form {
+    display: grid;
+    gap: 20px;
+}
+
+.anadirAlojamiento .formGroup {
+    display: grid;
+    gap: 8px;
+}
+
+.anadirAlojamiento label {
+    font-weight: bold;
+}
+
+.anadirAlojamiento input[type="text"],
+.anadirAlojamiento input[type="number"],
+.anadirAlojamiento textarea,
+.anadirAlojamiento select {
+    width: 100%;
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    transition: border-color 0.3s ease;
+}
+
+.anadirAlojamiento input[type="file"] {
+    padding: 10px;
     font-size: 16px;
 }
 
-.button {
-    padding: 5px 10px;
-    background-color: #007bff;
+.anadirAlojamiento input[type="checkbox"] {
+    margin-right: 8px;
+}
+
+.anadirAlojamiento button[type="submit"] {
+    background-color: #61419B;
     color: white;
     border: none;
-    border-radius: 5px;
+    padding: 12px 24px;
+    font-size: 16px;
     cursor: pointer;
+    border-radius: 4px;
+    transition: background-color 0.3s ease;
 }
 
-.list {
-    list-style: none;
-    padding: 0;
+.anadirAlojamiento button[type="submit"]:hover {
+    background-color: #5a378d;
 }
 
-.listItem {
-    display: flex;
-    justify-content: space-between;
-    margin-bottom: 10px;
+.anadirAlojamiento .previewImages {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(100px, 1fr)); /* Ajusta el tamaño mínimo y máximo de las imágenes */
+    gap: 10px; /* Espacio entre las imágenes */
 }
 
-.editButton {
-    background-color: #ffc107;
-    border: none;
-    color: white;
-    padding: 5px;
-    cursor: pointer;
-    margin-right: 5px;
-}
-
-.deleteButton {
-    background-color: #dc3545;
-    border: none;
-    color: white;
-    padding: 5px;
-    cursor: pointer;
+.anadirAlojamiento .previewImages img {
+    width: 100%; /* Asegura que las imágenes ocupen todo el espacio disponible dentro del grid cell */
+    height: auto; /* Para mantener la proporción de aspecto */
+    max-height: 200px; /* Ajusta la altura máxima si lo necesitas */
+    object-fit: cover; /* Ajusta cómo se ajustan las imágenes al contenedor */
+    border-radius: 4px; /* Borde redondeado opcional */
+    border: 1px solid #ddd; /* Borde opcional para cada imagen */
 }

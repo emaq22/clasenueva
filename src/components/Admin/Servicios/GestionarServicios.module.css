@@ -5,18 +5,26 @@
 .form {
     display: flex;
     justify-content: center;
+    align-items: center;
     margin-bottom: 20px;
 }
 
-.input {
+.agregarServicio {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.agregarServicio input {
+    flex: 1;
     margin-right: 10px;
-    padding: 5px;
+    padding: 8px;
     font-size: 16px;
     border: 1px solid #ced4da;
     border-radius: 5px;
 }
 
-.button {
+.agregarServicio button {
     padding: 5px 10px;
     background-color: #007bff;
     color: white;
@@ -25,7 +33,7 @@
     cursor: pointer;
 }
 
-.list {
+.listaServicios {
     list-style: none;
     padding: 0;
 }
@@ -33,13 +41,22 @@
 .listItem {
     display: flex;
     justify-content: space-between;
-    margin-bottom: 10px;
     align-items: center;
+    margin-bottom: 10px;
+    padding: 10px;
+    border-radius: 5px;
+    /* Eliminar la sombra y bordes */
+    box-shadow: none;
+    border: none;
 }
 
-.description {
+.listItem span {
     flex: 1;
-    text-align: center;
+}
+
+.actions {
+    display: flex;
+    align-items: center;
 }
 
 .editButton {

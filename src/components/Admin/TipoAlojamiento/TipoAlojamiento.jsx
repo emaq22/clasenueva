@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
 import styles from './TipoAlojamiento.module.css';
 import Modal from './Modal';
 
@@ -16,8 +15,12 @@ const TipoAlojamiento = () => {
 
     const fetchTiposAlojamiento = async () => {
         try {
-            const response = await axios.get('/tiposAlojamiento/getTiposAlojamiento');
-            setTipos(response.data);
+            const response = await fetch('/tiposAlojamiento/getTiposAlojamiento');
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            const data = await response.json();
+            setTipos(data);
         } catch (error) {
             console.error('Error fetching tipos de alojamiento', error);
         }
@@ -32,7 +35,18 @@ const TipoAlojamiento = () => {
                 return;
             }
 
-            await axios.post('/tiposAlojamiento/createTipoAlojamiento', { Descripcion: descripcion });
+            const response = await fetch('/tiposAlojamiento/createTipoAlojamiento', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ Descripcion: descripcion })
+            });
+
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+
             await fetchTiposAlojamiento();
             setDescripcion('');
             setErrorMessage('');
@@ -47,7 +61,18 @@ const TipoAlojamiento = () => {
                 console.error('ID is not valid');
                 return;
             }
-            await axios.put(`/tiposAlojamiento/putTipoAlojamiento/${id}`, { Descripcion: descripcion });
+            const response = await fetch(`/tiposAlojamiento/putTipoAlojamiento/${id}`, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ Descripcion: descripcion })
+            });
+
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+
             await fetchTiposAlojamiento();
             setEditTipo(null);
             setDescripcion('');
@@ -63,7 +88,14 @@ const TipoAlojamiento = () => {
                 console.error('ID is not valid');
                 return;
             }
-            await axios.delete(`/tiposAlojamiento/deleteTipoAlojamiento/${id}`);
+            const response = await fetch(`/tiposAlojamiento/deleteTipoAlojamiento/${id}`, {
+                method: 'DELETE'
+            });
+
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+
             await fetchTiposAlojamiento();
             setErrorMessage('');
         } catch (error) {
@@ -110,9 +142,10 @@ const TipoAlojamiento = () => {
             <ul className={styles.list}>
                 {tipos.map((tipo) => (
                     <li key={tipo.idTipoAlojamiento} className={styles.listItem}>
-                        <span>ID: {tipo.idTipoAlojamiento}</span>
-                        <span>{tipo.Descripcion}</span>
-                        <div>
+                        <div className={styles.description}>
+                            <span>{tipo.Descripcion}</span>
+                        </div>
+                        <div className={styles.actions}>
                             <button onClick={() => setEditTipo(tipo)} className={styles.editButton}>Editar</button>
                             <button onClick={() => handleDelete(tipo.idTipoAlojamiento)} className={styles.deleteButton}>Eliminar</button>
                         </div>

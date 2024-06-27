@@ -1,12 +1,11 @@
 /* Ajuste para el tamaño de los elementos .Hotel dentro de los artículos */
-
 .Hoteles {
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 115%; /* Altura específica para el componente Hoteles */
-  margin: 0; /* No margen superior o inferior */
-  padding: 0; /* No padding adicional */
+  min-height: 100vh; /* Asegúrate de que el contenedor tenga al menos la altura del viewport */
+  margin: 0;
+  padding: 0;
 }
 
 article {
@@ -15,6 +14,7 @@ article {
   gap: 20px;
   justify-content: center;
   align-items: flex-start;
+  width: 100%;
 }
 
 .Hotel {
@@ -27,6 +27,7 @@ article {
   position: relative;
   cursor: pointer;
   margin: 20px;
+  color: #fff
 }
 
 .Hotel .image-box {
