@@ -65,20 +65,38 @@
     background-color: #5a378d;
 }
 
-.anadirAlojamiento .imagenesPreview {
+.anadirAlojamiento .preview {
     display: grid;
-    gap: 10px; /* Espacio entre las imágenes */
+    grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+    gap: 10px;
 }
 
-.anadirAlojamiento .imagenPreview {
-    max-width: 100%; /* Ajusta el tamaño máximo de la imagen */
+.anadirAlojamiento .previewItem {
+    display: flex;
+    flex-direction: column; /* Colocar la imagen encima del botón */
+    align-items: center; /* Centrar elementos horizontalmente */
+}
+
+.anadirAlojamiento .previewImage {
+    max-width: 100px; /* Tamaño máximo de las imágenes de vista previa */
+    max-height: 100px; /* Tamaño máximo de las imágenes de vista previa */
     overflow: hidden; /* Para ocultar cualquier desbordamiento de la imagen */
     border-radius: 4px; /* Borde redondeado opcional */
     border: 1px solid #ddd; /* Borde opcional para cada imagen */
 }
 
-.anadirAlojamiento .imagenPreview img {
-    max-width: 100%; /* Ajusta el tamaño máximo de la imagen dentro de su contenedor */
-    height: auto; /* Para mantener la proporción de la imagen */
-    display: block; /* Para evitar espacios innecesarios alrededor de la imagen */
+.anadirAlojamiento .eliminarImagenBtn {
+    margin-top: 8px; /* Espacio superior entre la imagen y el botón */
+    background-color: #e74c3c; /* Color de fondo del botón */
+    color: white; /* Color del texto del botón */
+    border: none; /* Sin borde */
+    padding: 8px 16px; /* Espaciado interno */
+    font-size: 14px; /* Tamaño de fuente */
+    border-radius: 4px; /* Borde redondeado */
+    cursor: pointer; /* Cursor tipo puntero */
+    transition: background-color 0.3s ease; /* Transición al pasar el ratón */
+}
+
+.anadirAlojamiento .eliminarImagenBtn:hover {
+    background-color: #c0392b; /* Color de fondo del botón al pasar el ratón */
 }

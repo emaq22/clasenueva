@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import AnadirAlojamiento from './AnadirAlojamiento';
+import styles from './EditarAlojamiento.module.css'; // Importa los estilos CSS
 
 const EditarAlojamiento = () => {
     const [selectedAlojamientoId, setSelectedAlojamientoId] = useState(null);
@@ -50,10 +51,6 @@ const EditarAlojamiento = () => {
     
             console.log('Todas las imágenes:', dataImagenes);
     
-            // Verify data and id types
-            console.log('id type:', typeof id);
-            console.log('dataImagenes:', dataImagenes);
-    
             // Filter imágenes vinculadas al alojamiento específico
             const imagenesAlojamiento = dataImagenes.filter(imagen => {
                 console.log('Comparing imagen:', imagen);
@@ -72,12 +69,11 @@ const EditarAlojamiento = () => {
             console.error(`Error fetching alojamiento with id ${id}:`, error);
         }
     };
-    
 
     return (
-        <div>
+        <div className={styles.editarAlojamiento}>
             <h2>Editar Alojamiento</h2>
-            <select onChange={(e) => setSelectedAlojamientoId(e.target.value)}>
+            <select className={styles.select} onChange={(e) => setSelectedAlojamientoId(e.target.value)}>
                 <option value="">Seleccionar Alojamiento</option>
                 {alojamientos.map((alojamiento) => (
                     <option key={alojamiento.idAlojamiento} value={alojamiento.idAlojamiento}>
