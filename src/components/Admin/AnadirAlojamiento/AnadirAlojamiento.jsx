@@ -25,17 +25,30 @@ const AnadirAlojamiento = ({ selectedAlojamientoId, onSave, alojamientoData }) =
     }, []);
 
     useEffect(() => {
-        if (selectedAlojamientoId && alojamientoData) {
-            setForm({
-                ...alojamientoData,
-                ServiciosIds: alojamientoData.Servicios ? alojamientoData.Servicios.map(servicio => servicio.idServicio) : [],
-                Imagenes: alojamientoData.Imagenes ? alojamientoData.Imagenes.map(imagen => ({
-                    idImagen: imagen.idImagen,
-                    RutaArchivo: imagen.RutaArchivo
-                })) : []
-            });
-        }
-    }, [selectedAlojamientoId, alojamientoData]);
+    if (selectedAlojamientoId && alojamientoData) {
+        setForm(prevForm => {
+            const currentServiciosIds = prevForm.ServiciosIds || [];
+            const nuevasServiciosIds = alojamientoData.Servicios
+                ? alojamientoData.Servicios.map(servicio => servicio.idServicio)
+                : [];
+
+            const filteredServiciosIds = nuevasServiciosIds.filter(id => !currentServiciosIds.includes(id));
+
+            const nuevasImagenes = alojamientoData.Imagenes
+                ? alojamientoData.Imagenes.filter(imagen =>
+                      !prevForm.Imagenes.some(existingImagen => existingImagen.idImagen === imagen.idImagen)
+                  )
+                : [];
+
+            return {
+                ...prevForm,
+                ServiciosIds: [...currentServiciosIds, ...filteredServiciosIds],
+                Imagenes: [...prevForm.Imagenes, ...nuevasImagenes]
+            };
+        });
+    }
+}, [selectedAlojamientoId, alojamientoData]);
+ 
 
     const fetchTiposAlojamiento = async () => {
         try {
@@ -72,7 +85,7 @@ const AnadirAlojamiento = ({ selectedAlojamientoId, onSave, alojamientoData }) =
         if (checked) {
             setForm((prevForm) => ({
                 ...prevForm,
-                ServiciosIds: [...prevForm.ServiciosIds, idServicio]
+                ServiciosIds: [...new Set([...prevForm.ServiciosIds, idServicio])]
             }));
         } else {
             setForm((prevForm) => ({
@@ -80,7 +93,7 @@ const AnadirAlojamiento = ({ selectedAlojamientoId, onSave, alojamientoData }) =
                 ServiciosIds: prevForm.ServiciosIds.filter((id) => id !== idServicio)
             }));
         }
-    };
+    };    
 
     const handleFileChange = (e) => {
         const files = Array.from(e.target.files);
