@@ -81,7 +81,10 @@ const AnadirAlojamiento = ({ selectedAlojamientoId, onSave, alojamientoData }) =
 
     const handleFileChange = (e) => {
         const files = Array.from(e.target.files);
-        const fileUrls = files.map(file => URL.createObjectURL(file));
+        const fileUrls = files.map(file => ({
+            name: file.name, // o cualquier lógica para generar un nombre único si es necesario
+            url: `/img/${file.name}` // ajusta esto según tu estructura de ruta deseada
+        }));
         setForm((prevForm) => ({
             ...prevForm,
             Imagenes: [...prevForm.Imagenes, ...fileUrls]
@@ -90,17 +93,17 @@ const AnadirAlojamiento = ({ selectedAlojamientoId, onSave, alojamientoData }) =
 
     const handleEliminarImagen = (idImagen) => {
         console.log('Eliminando imagen con ID:', idImagen);
-        
+
         // Filtra las imágenes basadas en el idImagen
         const nuevasImagenes = form.Imagenes.filter(imagen => imagen.idImagen !== idImagen);
         setForm({
             ...form,
             Imagenes: nuevasImagenes
         });
-    
+
         eliminarImagenBackend(idImagen); // Pasar idImagen al método de eliminación
-    };    
-    
+    };
+
     const eliminarImagenBackend = async (idImagen) => {
         try {
             console.log(`Eliminando imagen del backend: Imagen ID = ${idImagen}`);
@@ -112,7 +115,7 @@ const AnadirAlojamiento = ({ selectedAlojamientoId, onSave, alojamientoData }) =
         } catch (error) {
             console.error('Error al eliminar imagen del backend:', error);
         }
-    };    
+    };
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -195,17 +198,14 @@ const AnadirAlojamiento = ({ selectedAlojamientoId, onSave, alojamientoData }) =
 
     const createAlojamientoImagenes = async (idAlojamiento) => {
         try {
-            // Mapea sobre las imágenes únicas (usando un Set para evitar duplicados)
-            const uniqueImages = new Set(form.Imagenes);
+            const uniqueImages = new Set(form.Imagenes.map(imagen => imagen.url));
             await Promise.all(
                 Array.from(uniqueImages).map(async (rutaArchivo) => {
-                    // Construye el objeto que la API espera
                     const imageData = {
                         idAlojamiento: idAlojamiento,
                         RutaArchivo: rutaArchivo
                     };
 
-                    // Realiza la solicitud POST para crear la imagen
                     const response = await fetch('/imagen/createImagen', {
                         method: 'POST',
                         headers: {
@@ -214,7 +214,6 @@ const AnadirAlojamiento = ({ selectedAlojamientoId, onSave, alojamientoData }) =
                         body: JSON.stringify(imageData)
                     });
 
-                    // Maneja la respuesta si es necesario
                     const data = await response.json();
                     console.log('Imagen creada:', data);
                 })
@@ -356,13 +355,14 @@ const AnadirAlojamiento = ({ selectedAlojamientoId, onSave, alojamientoData }) =
                         onChange={handleFileChange}
                     />
                     <div className={styles.previewImages}>
-                        {form.Imagenes.map((imagen, idImagen) => (
-                            <div key={idImagen} className={styles.imageContainer}>
-                                <img src={imagen} alt={`Imagen ${idImagen}`} className={styles.image} />
-                                <button type="button" onClick={() => handleEliminarImagen(idImagen)}>Eliminar</button>
+                        {form.Imagenes.map((imagen, index) => (
+                            <div key={index} className={styles.imageContainer}>
+                                <img src={imagen.url} alt={`Imagen ${index}`} className={styles.image} />
+                                <button type="button" onClick={() => handleEliminarImagen(index)}>Eliminar</button>
                             </div>
                         ))}
                     </div>
+
                 </div>
                 <button type="submit">Guardar</button>
             </form>
