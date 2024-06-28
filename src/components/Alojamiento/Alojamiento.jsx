@@ -11,6 +11,7 @@ const Alojamiento = () => {
   const [alojamientoServicios, setAlojamientoServicios] = useState([]);
   const [servicios, setServicios] = useState({});
   const [tipoAlojamiento, setTipoAlojamiento] = useState(null);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -22,6 +23,7 @@ const Alojamiento = () => {
         }
         const dataAlojamiento = await responseAlojamiento.json();
         setAlojamiento(dataAlojamiento);
+        console.log('Alojamiento:', dataAlojamiento);
 
         // Fetch de imágenes
         const responseImagenes = await fetch(`/imagen/getAllImagenes`);
@@ -31,6 +33,7 @@ const Alojamiento = () => {
         const dataImagenes = await responseImagenes.json();
         const imagenesAlojamiento = dataImagenes.filter(imagen => imagen.idAlojamiento === parseInt(id, 10));
         setImagenes(imagenesAlojamiento);
+        console.log('Imágenes:', imagenesAlojamiento);
 
         // Fetch de servicios del alojamiento
         const responseServicios = await fetch(`/alojamientosServicios/getAlojamientoServicios/${id}`);
@@ -39,6 +42,7 @@ const Alojamiento = () => {
         }
         const dataServicios = await responseServicios.json();
         setAlojamientoServicios(dataServicios);
+        console.log('Servicios del Alojamiento:', dataServicios);
 
         // Fetch del tipo de alojamiento
         const responseTipoAlojamiento = await fetch(`/tiposAlojamiento/getTipoAlojamiento/${dataAlojamiento.idTipoAlojamiento}`);
@@ -47,28 +51,34 @@ const Alojamiento = () => {
         }
         const dataTipoAlojamiento = await responseTipoAlojamiento.json();
         setTipoAlojamiento(dataTipoAlojamiento);
+        console.log('Tipo de Alojamiento:', dataTipoAlojamiento);
 
         // Obtener nombres de servicios
-        const serviciosIds = dataServicios.map(servicio => servicio.idServicio);
-        const serviciosNombres = await Promise.all(
-          serviciosIds.map(async idServicio => {
-            const response = await fetch(`/servicio/getServicio/${idServicio}`);
-            if (!response.ok) {
-              throw new Error(`Error al obtener el servicio ${idServicio}`);
-            }
-            const data = await response.json();
-            return { idServicio, nombre: data.Nombre };
-          })
-        );
+        if (dataServicios.length > 0) {
+          const serviciosIds = dataServicios.map(servicio => servicio.idServicio);
+          const serviciosNombres = await Promise.all(
+            serviciosIds.map(async idServicio => {
+              const response = await fetch(`/servicio/getServicio/${idServicio}`);
+              if (!response.ok) {
+                throw new Error(`Error al obtener el servicio ${idServicio}`);
+              }
+              const data = await response.json();
+              return { idServicio, nombre: data.Nombre };
+            })
+          );
 
-        // Construir objeto de servicios para facilitar el acceso por ID
-        const serviciosObj = {};
-        serviciosNombres.forEach(servicio => {
-          serviciosObj[servicio.idServicio] = servicio.nombre;
-        });
-        setServicios(serviciosObj);
+          // Construir objeto de servicios para facilitar el acceso por ID
+          const serviciosObj = {};
+          serviciosNombres.forEach(servicio => {
+            serviciosObj[servicio.idServicio] = servicio.nombre;
+          });
+          setServicios(serviciosObj);
+          console.log('Servicios:', serviciosObj);
+        }
       } catch (error) {
         console.error('Error fetching data:', error);
+      } finally {
+        setLoading(false);
       }
     };
 
@@ -76,8 +86,12 @@ const Alojamiento = () => {
   }, [id]);
 
   // Renderizado del componente con los datos disponibles
-  if (!alojamiento || !tipoAlojamiento || imagenes.length === 0 || alojamientoServicios.length === 0) {
+  if (loading) {
     return <p>Cargando...</p>;
+  }
+
+  if (!alojamiento) {
+    return <p>Error al cargar el alojamiento.</p>;
   }
 
   return (
@@ -107,14 +121,18 @@ const Alojamiento = () => {
             <li><strong>Cantidad de Baños:</strong> {alojamiento.CantidadBanios}</li>
             <li><strong>Estado:</strong> {alojamiento.Estado}</li>
           </ul>
-          <h3>Servicios:</h3>
-          <ul>
-            {alojamientoServicios.map((alojamientoServicio) => (
-              <li key={alojamientoServicio.idAlojamientoServicio}>
-                {servicios[alojamientoServicio.idServicio]}
-              </li>
-            ))}
-          </ul>
+          {alojamientoServicios.length > 0 && (
+            <>
+              <h3>Servicios:</h3>
+              <ul>
+                {alojamientoServicios.map((alojamientoServicio) => (
+                  <li key={alojamientoServicio.idAlojamientoServicio}>
+                    {servicios[alojamientoServicio.idServicio] || 'Servicio no disponible'}
+                  </li>
+                ))}
+              </ul>
+            </>
+          )}
         </div>
       </div>
     </div>

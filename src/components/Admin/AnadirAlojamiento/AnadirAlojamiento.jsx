@@ -169,6 +169,7 @@ const AnadirAlojamiento = ({ selectedAlojamientoId, onSave, alojamientoData }) =
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
+            // Crear o actualizar el alojamiento
             const alojamientoResponse = await fetch(selectedAlojamientoId ? `/alojamiento/putAlojamiento/${selectedAlojamientoId}` : '/alojamiento/createAlojamiento', {
                 method: selectedAlojamientoId ? 'PUT' : 'POST',
                 headers: {
@@ -186,20 +187,46 @@ const AnadirAlojamiento = ({ selectedAlojamientoId, onSave, alojamientoData }) =
                     Estado: form.Estado
                 })
             });
-            const alojamientoData = await alojamientoResponse.json();
-
-            if (selectedAlojamientoId) {
-                await updateAlojamientoImagenes(selectedAlojamientoId);
-            } else {
-                await createAlojamientoImagenes(alojamientoData.id);
+            if (!alojamientoResponse.ok) {
+                throw new Error('Failed to save accommodation');
             }
-
+            const alojamientoData = await alojamientoResponse.json();
+            console.log('ID del alojamiento:', alojamientoData.id);
+    
+            // Crear relaciones en alojamientoservicios
+            await Promise.all(form.ServiciosIds.map(async idServicio => {
+                await fetch('/alojamientosServicios/createAlojamientoServicio', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ idAlojamiento: alojamientoData.id, idServicio })
+                });
+            }));
+    
+            // Crear o actualizar imágenes del alojamiento
+            await createAlojamientoImagenes(alojamientoData.id);
+    
+            // Actualizar el estado del formulario y llamar onSave para notificar que se ha guardado
+            setForm({
+                Titulo: '',
+                Descripcion: '',
+                idTipoAlojamiento: '',
+                Latitud: '',
+                Longitud: '',
+                PrecioPorDia: '',
+                CantidadDormitorios: '',
+                CantidadBanios: '',
+                Estado: 'Disponible',
+                Imagenes: [],
+                ServiciosIds: []
+            });
             onSave();
         } catch (error) {
             console.error('Error saving alojamiento:', error);
         }
-    };
-
+    };    
+    
     const createAlojamientoImagenes = async (idAlojamiento) => {
         try {
             const uniqueImages = new Set(form.Imagenes.map(imagen => imagen.RutaArchivo));
@@ -216,14 +243,18 @@ const AnadirAlojamiento = ({ selectedAlojamientoId, onSave, alojamientoData }) =
                         },
                         body: JSON.stringify(imageData)
                     });
+                    if (!response.ok) {
+                        throw new Error('Failed to create image');
+                    }
                     const data = await response.json();
                     console.log('Imagen creada:', data);
                 })
             );
         } catch (error) {
             console.error('Error creating alojamiento imagenes:', error);
+            throw error; // Re-lanza el error para que sea capturado por handleSubmit
         }
-    };
+    };    
 
     const updateAlojamientoImagenes = async (idAlojamiento) => {
         try {
