@@ -29,7 +29,10 @@ const AnadirAlojamiento = ({ selectedAlojamientoId, onSave, alojamientoData }) =
             setForm({
                 ...alojamientoData,
                 ServiciosIds: alojamientoData.Servicios ? alojamientoData.Servicios.map(servicio => servicio.idServicio) : [],
-                Imagenes: alojamientoData.Imagenes ? alojamientoData.Imagenes.map(imagen => imagen.RutaArchivo) : []
+                Imagenes: alojamientoData.Imagenes ? alojamientoData.Imagenes.map(imagen => ({
+                    idImagen: imagen.idImagen,
+                    RutaArchivo: imagen.RutaArchivo
+                })) : []
             });
         }
     }, [selectedAlojamientoId, alojamientoData]);
@@ -38,7 +41,7 @@ const AnadirAlojamiento = ({ selectedAlojamientoId, onSave, alojamientoData }) =
         try {
             const response = await fetch('/tiposAlojamiento/getTiposAlojamiento');
             const data = await response.json();
-            console.log('Tipos de Alojamiento:', data); // Log de depuración
+            console.log('Tipos de Alojamiento:', data);
             setTiposAlojamiento(data);
         } catch (error) {
             console.error('Error fetching tipos de alojamiento:', error);
@@ -82,8 +85,8 @@ const AnadirAlojamiento = ({ selectedAlojamientoId, onSave, alojamientoData }) =
     const handleFileChange = (e) => {
         const files = Array.from(e.target.files);
         const fileUrls = files.map(file => ({
-            name: file.name, // o cualquier lógica para generar un nombre único si es necesario
-            url: `/img/${file.name}` // ajusta esto según tu estructura de ruta deseada
+            idImagen: null,
+            RutaArchivo: `/img/${file.name}`
         }));
         setForm((prevForm) => ({
             ...prevForm,
@@ -94,14 +97,13 @@ const AnadirAlojamiento = ({ selectedAlojamientoId, onSave, alojamientoData }) =
     const handleEliminarImagen = (idImagen) => {
         console.log('Eliminando imagen con ID:', idImagen);
 
-        // Filtra las imágenes basadas en el idImagen
         const nuevasImagenes = form.Imagenes.filter(imagen => imagen.idImagen !== idImagen);
         setForm({
             ...form,
             Imagenes: nuevasImagenes
         });
 
-        eliminarImagenBackend(idImagen); // Pasar idImagen al método de eliminación
+        eliminarImagenBackend(idImagen);
     };
 
     const eliminarImagenBackend = async (idImagen) => {
@@ -159,11 +161,9 @@ const AnadirAlojamiento = ({ selectedAlojamientoId, onSave, alojamientoData }) =
 
     const createAlojamientoServicios = async (idAlojamiento) => {
         try {
-            // Crea los servicios únicos usando un Set para evitar duplicados
             const uniqueServiciosIds = new Set(form.ServiciosIds);
             await Promise.all(
                 Array.from(uniqueServiciosIds).map(async (idServicio) => {
-                    // Realiza la solicitud POST para crear el servicio
                     const response = await fetch('/alojamientosServicios/createAlojamientoServicio', {
                         method: 'POST',
                         headers: {
@@ -171,8 +171,6 @@ const AnadirAlojamiento = ({ selectedAlojamientoId, onSave, alojamientoData }) =
                         },
                         body: JSON.stringify({ idAlojamiento, idServicio })
                     });
-
-                    // Maneja la respuesta si es necesario
                     const data = await response.json();
                     console.log('Servicio creado:', data);
                 })
@@ -184,12 +182,9 @@ const AnadirAlojamiento = ({ selectedAlojamientoId, onSave, alojamientoData }) =
 
     const updateAlojamientoServicios = async (idAlojamiento) => {
         try {
-            // Elimina los servicios existentes para reemplazarlos con los actuales
             await fetch(`/alojamientosServicios/deleteAlojamientoServicio/${idAlojamiento}`, {
                 method: 'DELETE'
             });
-
-            // Crea los nuevos servicios
             await createAlojamientoServicios(idAlojamiento);
         } catch (error) {
             console.error('Error updating alojamiento servicios:', error);
@@ -198,14 +193,13 @@ const AnadirAlojamiento = ({ selectedAlojamientoId, onSave, alojamientoData }) =
 
     const createAlojamientoImagenes = async (idAlojamiento) => {
         try {
-            const uniqueImages = new Set(form.Imagenes.map(imagen => imagen.url));
+            const uniqueImages = new Set(form.Imagenes.map(imagen => imagen.RutaArchivo));
             await Promise.all(
                 Array.from(uniqueImages).map(async (rutaArchivo) => {
                     const imageData = {
                         idAlojamiento: idAlojamiento,
                         RutaArchivo: rutaArchivo
                     };
-
                     const response = await fetch('/imagen/createImagen', {
                         method: 'POST',
                         headers: {
@@ -213,7 +207,6 @@ const AnadirAlojamiento = ({ selectedAlojamientoId, onSave, alojamientoData }) =
                         },
                         body: JSON.stringify(imageData)
                     });
-
                     const data = await response.json();
                     console.log('Imagen creada:', data);
                 })
@@ -225,12 +218,9 @@ const AnadirAlojamiento = ({ selectedAlojamientoId, onSave, alojamientoData }) =
 
     const updateAlojamientoImagenes = async (idAlojamiento) => {
         try {
-            // Elimina imágenes existentes para reemplazarlas con las actuales
             await fetch(`/imagen/deleteImagen/${idAlojamiento}`, {
                 method: 'DELETE'
             });
-
-            // Crea las nuevas imágenes
             await createAlojamientoImagenes(idAlojamiento);
         } catch (error) {
             console.error('Error updating alojamiento imagenes:', error);
@@ -242,129 +232,137 @@ const AnadirAlojamiento = ({ selectedAlojamientoId, onSave, alojamientoData }) =
             <h2>{selectedAlojamientoId ? 'Editar Alojamiento' : 'Añadir Alojamiento'}</h2>
             <form onSubmit={handleSubmit}>
                 <div className={styles.formGroup}>
-                    <label>Título:</label>
+                    <label htmlFor="Titulo">Título:</label>
                     <input
                         type="text"
+                        id="Titulo"
                         name="Titulo"
                         value={form.Titulo}
                         onChange={handleChange}
                     />
                 </div>
                 <div className={styles.formGroup}>
-                    <label>Descripción:</label>
+                    <label htmlFor="Descripcion">Descripción:</label>
                     <textarea
+                        id="Descripcion"
                         name="Descripcion"
                         value={form.Descripcion}
                         onChange={handleChange}
-                    ></textarea>
+                    />
                 </div>
                 <div className={styles.formGroup}>
-                    <label>Tipo de Alojamiento:</label>
+                    <label htmlFor="idTipoAlojamiento">Tipo de Alojamiento:</label>
                     <select
+                        id="idTipoAlojamiento"
                         name="idTipoAlojamiento"
                         value={form.idTipoAlojamiento}
                         onChange={handleChange}
                     >
-                        <option value="">Seleccione un tipo</option>
-                        {tiposAlojamiento.map((tipo) => (
-                            <option key={tipo.idTipoAlojamiento} value={tipo.idTipoAlojamiento}>
-                                {tipo.Descripcion}
-                            </option>
+                        <option value="">Seleccionar tipo de alojamiento</option>
+                        {tiposAlojamiento.map(tipo => (
+                            <option key={tipo.idTipoAlojamiento} value={tipo.idTipoAlojamiento}>{tipo.Descripcion}</option>
                         ))}
                     </select>
                 </div>
                 <div className={styles.formGroup}>
-                    <label>Latitud:</label>
+                    <label htmlFor="Latitud">Latitud:</label>
                     <input
                         type="text"
+                        id="Latitud"
                         name="Latitud"
                         value={form.Latitud}
                         onChange={handleChange}
                     />
                 </div>
                 <div className={styles.formGroup}>
-                    <label>Longitud:</label>
+                    <label htmlFor="Longitud">Longitud:</label>
                     <input
                         type="text"
+                        id="Longitud"
                         name="Longitud"
                         value={form.Longitud}
                         onChange={handleChange}
                     />
                 </div>
                 <div className={styles.formGroup}>
-                    <label>Precio por Día:</label>
+                    <label htmlFor="PrecioPorDia">Precio por Día:</label>
                     <input
                         type="text"
+                        id="PrecioPorDia"
                         name="PrecioPorDia"
                         value={form.PrecioPorDia}
                         onChange={handleChange}
                     />
                 </div>
                 <div className={styles.formGroup}>
-                    <label>Cantidad de Dormitorios:</label>
+                    <label htmlFor="CantidadDormitorios">Cantidad de Dormitorios:</label>
                     <input
                         type="text"
+                        id="CantidadDormitorios"
                         name="CantidadDormitorios"
                         value={form.CantidadDormitorios}
                         onChange={handleChange}
                     />
                 </div>
                 <div className={styles.formGroup}>
-                    <label>Cantidad de Baños:</label>
+                    <label htmlFor="CantidadBanios">Cantidad de Baños:</label>
                     <input
                         type="text"
+                        id="CantidadBanios"
                         name="CantidadBanios"
                         value={form.CantidadBanios}
                         onChange={handleChange}
                     />
                 </div>
                 <div className={styles.formGroup}>
-                    <label>Estado:</label>
+                    <label htmlFor="Estado">Estado:</label>
                     <select
+                        id="Estado"
                         name="Estado"
                         value={form.Estado}
                         onChange={handleChange}
                     >
                         <option value="Disponible">Disponible</option>
-                        <option value="No Disponible">No Disponible</option>
+                        <option value="No disponible">No disponible</option>
                     </select>
                 </div>
                 <div className={styles.formGroup}>
                     <label>Servicios:</label>
-                    <div className={styles.servicesList}>
-                        {servicios.map((servicio) => (
-                            <div key={servicio.idServicio} className={styles.serviceItem}>
-                                <label>
-                                    <input
-                                        type="checkbox"
-                                        value={servicio.idServicio}
-                                        checked={form.ServiciosIds.includes(servicio.idServicio)}
-                                        onChange={handleCheckboxChange}
-                                    />
-                                    {servicio.Nombre}
-                                </label>
-                            </div>
-                        ))}
-                    </div>
+                    {servicios.map(servicio => (
+                        <div key={servicio.idServicio}>
+                            <input
+                                type="checkbox"
+                                id={`servicio-${servicio.idServicio}`}
+                                name={`servicio-${servicio.idServicio}`}
+                                value={servicio.idServicio}
+                                checked={form.ServiciosIds.includes(servicio.idServicio)}
+                                onChange={handleCheckboxChange}
+                            />
+                            <label htmlFor={`servicio-${servicio.idServicio}`}>{servicio.Nombre}</label>
+                        </div>
+                    ))}
                 </div>
                 <div className={styles.formGroup}>
-                    <label>Imágenes:</label>
+                    <label htmlFor="Imagenes">Imágenes:</label>
                     <input
                         type="file"
+                        id="Imagenes"
+                        name="Imagenes"
                         multiple
                         onChange={handleFileChange}
                     />
-                    <div className={styles.previewImages}>
+                    <div className={styles.imagenesPreview}>
                         {form.Imagenes.map((imagen, index) => (
-                            <div key={index} className={styles.imageContainer}>
-                                <img src={imagen.url} alt={`Imagen ${index}`} className={styles.image} />
-                                <button type="button" onClick={() => handleEliminarImagen(index)}>Eliminar</button>
+                            <div key={index} className={styles.imagenPreview}>
+                                <img src={imagen.RutaArchivo} alt={`Imagen ${index}`} />
+                                <button type="button" onClick={() => handleEliminarImagen(imagen.idImagen)}>
+                                    Eliminar
+                                </button>
                             </div>
                         ))}
                     </div>
-
                 </div>
-                <button type="submit">Guardar</button>
+                <button type="submit">{selectedAlojamientoId ? 'Actualizar' : 'Guardar'}</button>
             </form>
         </div>
     );

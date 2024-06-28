@@ -65,17 +65,20 @@
     background-color: #5a378d;
 }
 
-.anadirAlojamiento .previewImages {
+.anadirAlojamiento .imagenesPreview {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(100px, 1fr)); /* Ajusta el tamaño mínimo y máximo de las imágenes */
     gap: 10px; /* Espacio entre las imágenes */
 }
 
-.anadirAlojamiento .previewImages img {
-    width: 100%; /* Asegura que las imágenes ocupen todo el espacio disponible dentro del grid cell */
-    height: auto; /* Para mantener la proporción de aspecto */
-    max-height: 200px; /* Ajusta la altura máxima si lo necesitas */
-    object-fit: cover; /* Ajusta cómo se ajustan las imágenes al contenedor */
+.anadirAlojamiento .imagenPreview {
+    max-width: 100%; /* Ajusta el tamaño máximo de la imagen */
+    overflow: hidden; /* Para ocultar cualquier desbordamiento de la imagen */
     border-radius: 4px; /* Borde redondeado opcional */
     border: 1px solid #ddd; /* Borde opcional para cada imagen */
+}
+
+.anadirAlojamiento .imagenPreview img {
+    max-width: 100%; /* Ajusta el tamaño máximo de la imagen dentro de su contenedor */
+    height: auto; /* Para mantener la proporción de la imagen */
+    display: block; /* Para evitar espacios innecesarios alrededor de la imagen */
 }
