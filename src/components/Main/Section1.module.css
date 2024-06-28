@@ -3,6 +3,7 @@
   padding: 50px;
   text-align: center;
   margin: 0; /* Asegúrate de que no haya márgenes superiores o inferiores */
+  height: 107%; /* Altura específica para el componente Login */
 }
 
 .Seccion1 h1 {

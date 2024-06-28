@@ -4,7 +4,7 @@
   max-width: 1000px; /* Modifica el ancho máximo según lo que necesites */
   margin: 0 auto;
   padding: 20px;
-  min-height: 135vh; /* Asegura que el cuerpo ocupe al menos el 100% del alto de la ventana */
+  min-height: 125vh; /* Asegura que el cuerpo ocupe al menos el 100% del alto de la ventana */
  /* margin-bottom: 200px !important; /* Ajusta el margen inferior para separar del footer */
 }
 

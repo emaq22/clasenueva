@@ -1,6 +1,5 @@
 /* Asegúrate de que el fondo ocupe toda la pantalla */
 html, body {
-  height: 127%; /* Altura específica para el componente Login */
   margin: 0;
   padding: 0;
   font-family: 'Poppins', sans-serif;
