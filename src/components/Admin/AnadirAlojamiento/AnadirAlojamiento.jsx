@@ -267,9 +267,9 @@ const AnadirAlojamiento = ({ selectedAlojamientoId, onSave, alojamientoData }) =
                         value={form.idTipoAlojamiento}
                         onChange={handleChange}
                     >
-                        <option value="">Seleccionar tipo de alojamiento</option>
+                        <option value="">Seleccione un tipo de alojamiento</option>
                         {tiposAlojamiento.map(tipo => (
-                            <option key={tipo.id} value={tipo.id}>
+                            <option key={tipo.idTipoAlojamiento} value={tipo.idTipoAlojamiento}>
                                 {tipo.Descripcion}
                             </option>
                         ))}
@@ -340,15 +340,16 @@ const AnadirAlojamiento = ({ selectedAlojamientoId, onSave, alojamientoData }) =
                 <div className={styles.formGroup}>
                     <label>Servicios:</label>
                     {servicios.map(servicio => (
-                        <div key={servicio.idServicio} className={styles.checkbox}>
+                        <div key={servicio.idServicio} className={styles.checkboxItem}>
                             <input
                                 type="checkbox"
-                                id={`servicio-${servicio.idServicio}`}
+                                id={`servicio_${servicio.idServicio}`}
+                                name={`servicio_${servicio.idServicio}`}
                                 value={servicio.idServicio}
                                 checked={form.ServiciosIds.includes(servicio.idServicio)}
                                 onChange={handleCheckboxChange}
                             />
-                            <label htmlFor={`servicio-${servicio.idServicio}`}>{servicio.Nombre}</label>
+                            <label htmlFor={`servicio_${servicio.idServicio}`}>{servicio.Nombre}</label>
                         </div>
                     ))}
                 </div>
@@ -362,28 +363,33 @@ const AnadirAlojamiento = ({ selectedAlojamientoId, onSave, alojamientoData }) =
                         multiple
                         onChange={handleFileChange}
                     />
-                </div>
-                <div className={styles.preview}>
-                    {form.Imagenes.map((imagen, index) => (
-                        <div key={index} className={styles.previewItem}>
-                            <img src={imagen.RutaArchivo} alt={`Imagen ${index}`} className={styles.previewImage} />
-                            {imagen.idImagen && (
+                    <div className={styles.preview}>
+                        {form.Imagenes.map((imagen, index) => (
+                            <div key={index} className={styles.previewItem}>
+                                <img
+                                    src={imagen.RutaArchivo}
+                                    alt={`Preview ${index}`}
+                                    className={styles.previewImage}
+                                />
                                 <button
                                     type="button"
-                                    onClick={() => handleEliminarImagen(imagen.idImagen)}
                                     className={styles.eliminarImagenBtn}
+                                    onClick={() => handleEliminarImagen(imagen.idImagen)}
                                 >
                                     Eliminar
                                 </button>
-                            )}
-                        </div>
-                    ))}
+                            </div>
+                        ))}
+                    </div>
                 </div>
-
-                <button type="submit">Guardar</button>
+                
+                <button type="submit" className={styles.submitBtn}>
+                    {selectedAlojamientoId ? 'Guardar Cambios' : 'Crear Alojamiento'}
+                </button>
             </form>
         </div>
     );
 };
 
 export default AnadirAlojamiento;
+

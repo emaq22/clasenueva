@@ -1,9 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import styles from './EliminarAlojamiento.module.css';
+import Modal from '../../Admin/TipoAlojamiento/Modal'; // Ajusta la ruta según la estructura de tu proyecto
 
 const EliminarAlojamiento = () => {
     const [alojamientos, setAlojamientos] = useState([]);
     const [selectedAlojamientoId, setSelectedAlojamientoId] = useState(null);
+    const [modalMessage, setModalMessage] = useState('');
+    const [showModal, setShowModal] = useState(false);
 
     useEffect(() => {
         fetchAlojamientos();
@@ -54,16 +57,23 @@ const EliminarAlojamiento = () => {
                 method: 'DELETE'
             });
             if (deleteAlojamientoResponse.ok) {
-                console.log(`Alojamiento con id ${selectedAlojamientoId} eliminado`);
+                setModalMessage(`¡Alojamiento eliminado con éxito!`);
+                setShowModal(true);
+                fetchAlojamientos(); // Actualizar lista de alojamientos después de eliminar
             } else {
                 const errorText = await deleteAlojamientoResponse.text();
                 console.error(`Error eliminando alojamiento con id ${selectedAlojamientoId}: ${errorText}`);
+                setModalMessage('Hubo un error al eliminar el alojamiento');
+                setShowModal(true);
             }
 
-            fetchAlojamientos();
         } catch (error) {
             console.error('Error deleting alojamiento:', error);
         }
+    };
+
+    const closeModal = () => {
+        setShowModal(false);
     };
 
     return (
@@ -78,6 +88,8 @@ const EliminarAlojamiento = () => {
                 ))}
             </select>
             <button className={styles.button} onClick={handleDelete} disabled={!selectedAlojamientoId}>Eliminar</button>
+
+            {showModal && <Modal message={modalMessage} onClose={closeModal} />}
         </div>
     );
 };

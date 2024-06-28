@@ -1,11 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import AnadirAlojamiento from './AnadirAlojamiento';
+import Modal from '../../Admin/TipoAlojamiento/Modal'; // Ajusta la ruta según la estructura de tu proyecto
 import styles from './EditarAlojamiento.module.css'; // Importa los estilos CSS
 
 const EditarAlojamiento = () => {
     const [selectedAlojamientoId, setSelectedAlojamientoId] = useState(null);
     const [alojamientos, setAlojamientos] = useState([]);
     const [alojamientoData, setAlojamientoData] = useState(null);
+    const [modalMessage, setModalMessage] = useState('');
+    const [showModal, setShowModal] = useState(false);
 
     useEffect(() => {
         fetchAlojamientos();
@@ -55,7 +58,7 @@ const EditarAlojamiento = () => {
             const imagenesAlojamiento = dataImagenes.filter(imagen => {
                 console.log('Comparing imagen:', imagen);
                 console.log('With idAlojamiento:', id);
-                return imagen.idAlojamiento === parseInt(id, 10); // Convert id to integer for comparison if necessary
+                return imagen.idAlojamiento === parseInt(id, 10);
             });
     
             console.log('Imágenes Vinculadas:', imagenesAlojamiento);
@@ -67,6 +70,23 @@ const EditarAlojamiento = () => {
             });
         } catch (error) {
             console.error(`Error fetching alojamiento with id ${id}:`, error);
+        }
+    };
+
+    const closeModal = () => {
+        setShowModal(false);
+    };
+
+    const handleSave = async () => {
+        try {
+
+            // Después de guardar exitosamente:
+            setModalMessage('¡Alojamiento actualizado correctamente!');
+            setShowModal(true);
+        } catch (error) {
+            console.error('Error al guardar alojamiento:', error);
+            setModalMessage('Hubo un error al guardar el alojamiento');
+            setShowModal(true);
         }
     };
 
@@ -85,9 +105,11 @@ const EditarAlojamiento = () => {
                 <AnadirAlojamiento
                     selectedAlojamientoId={selectedAlojamientoId}
                     alojamientoData={alojamientoData}
-                    onSave={fetchAlojamientos}
+                    onSave={handleSave}
                 />
             )}
+
+            {showModal && <Modal message={modalMessage} onClose={closeModal} />}
         </div>
     );
 };
